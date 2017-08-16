@@ -2,6 +2,8 @@ package no.clave.eirik.trening.romannumerals;
 
 class DecimalToRomanNumeralsConverter {
 
+	private static final int WHOLE_THOUSANDS = 0;
+
 	static String convertDecimalToRomanNumeral(int i){
 
 		int[] decomposedDecimalNumber = decomposeDecimalNumber(i);
@@ -38,7 +40,7 @@ class DecimalToRomanNumeralsConverter {
 
 		String romanNumeral = "";
 
-		if(decomposedDecimalNumber[0] != 0){romanNumeral = romanNumeral.concat(convert1000s(decomposedDecimalNumber[0]));}
+		if(decomposedDecimalNumber[WHOLE_THOUSANDS] != 0){romanNumeral = romanNumeral.concat(convert1000s(decomposedDecimalNumber[0]));}
 		if(decomposedDecimalNumber[1] != 0){romanNumeral = romanNumeral.concat(convert100s(decomposedDecimalNumber[1]));}
 		if(decomposedDecimalNumber[2] != 0){romanNumeral = romanNumeral.concat(convert10s(decomposedDecimalNumber[2]));}
 		if(decomposedDecimalNumber[3] != 0){romanNumeral = romanNumeral.concat(convertSimpleNumber(decomposedDecimalNumber[3]));}

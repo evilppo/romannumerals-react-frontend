@@ -8,21 +8,23 @@ class RomanNumeralToDecimalConverter {
         int length = numeral.length();
 
         for (int i = 0; i < length; i++){
-
-            char digit = numeral.charAt(i);
-            int digitValue = charValues(digit);
-
-            if(i < length - 1){
-
-                char digitAfter = numeral.charAt(i + 1);
-                int digitAfterValue = charValues(digitAfter);
-                if (digitValue < digitAfterValue){digitValue = -(digitValue);}
-            }
-
-            result += digitValue;
+            result += getDigitValue(numeral, length, i);
         }
 
         return result;
+    }
+
+    private static int getDigitValue(String numeral, int length, int i) {
+        char digit = numeral.charAt(i);
+        int digitValue = charValues(digit);
+
+        if(i < length - 1){
+
+            char digitAfter = numeral.charAt(i + 1);
+            int digitAfterValue = charValues(digitAfter);
+            if (digitValue < digitAfterValue){digitValue = -(digitValue);}
+        }
+        return digitValue;
     }
 
     private static int charValues(char digit){
