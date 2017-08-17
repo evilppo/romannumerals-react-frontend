@@ -2,7 +2,10 @@ package no.clave.eirik.trening.romannumerals;
 
 class DecimalToRomanNumeralsConverter {
 
-	private static final int WHOLE_THOUSANDS = 0;
+	private static final int THOUSANDS = 0;
+	private static final int HUNDREDS = 1;
+	private static final int TENS = 2;
+	private static final int SINGLES = 3;
 
 	static String convertDecimalToRomanNumeral(int i){
 
@@ -19,19 +22,19 @@ class DecimalToRomanNumeralsConverter {
 		int[] decomposedDecimalNumber = new int[4];
 
 		int thousands = (i / 1000);
-		decomposedDecimalNumber[0] = thousands;
+		decomposedDecimalNumber[THOUSANDS] = thousands;
 		i = i - thousands*1000;
 
 		int hundreds = (i / 100);
-		decomposedDecimalNumber[1] = hundreds;
+		decomposedDecimalNumber[HUNDREDS] = hundreds;
 		i = i - hundreds*100;
 
 		int tens = (i / 10);
-		decomposedDecimalNumber[2] = tens;
+		decomposedDecimalNumber[TENS] = tens;
 		i = i - tens*10;
 
 		//rest//
-		decomposedDecimalNumber[3] = i;
+		decomposedDecimalNumber[SINGLES] = i;
 
 		return decomposedDecimalNumber;
 	}
@@ -40,14 +43,13 @@ class DecimalToRomanNumeralsConverter {
 
 		String romanNumeral = "";
 
-		if(decomposedDecimalNumber[WHOLE_THOUSANDS] != 0){romanNumeral = romanNumeral.concat(convert1000s(decomposedDecimalNumber[0]));}
-		if(decomposedDecimalNumber[1] != 0){romanNumeral = romanNumeral.concat(convert100s(decomposedDecimalNumber[1]));}
-		if(decomposedDecimalNumber[2] != 0){romanNumeral = romanNumeral.concat(convert10s(decomposedDecimalNumber[2]));}
-		if(decomposedDecimalNumber[3] != 0){romanNumeral = romanNumeral.concat(convertSimpleNumber(decomposedDecimalNumber[3]));}
+		if(decomposedDecimalNumber[THOUSANDS] != 0){romanNumeral = romanNumeral.concat(convert1000s(decomposedDecimalNumber[THOUSANDS]));}
+		if(decomposedDecimalNumber[HUNDREDS] != 0){romanNumeral = romanNumeral.concat(convert100s(decomposedDecimalNumber[HUNDREDS]));}
+		if(decomposedDecimalNumber[TENS] != 0){romanNumeral = romanNumeral.concat(convert10s(decomposedDecimalNumber[TENS]));}
+		if(decomposedDecimalNumber[SINGLES] != 0){romanNumeral = romanNumeral.concat(convertSimpleNumber(decomposedDecimalNumber[SINGLES]));}
 
 		return romanNumeral;
 	}
-
 
 	//1-9//
 	private static String convertSimpleNumber(int i) {
@@ -128,40 +130,4 @@ class DecimalToRomanNumeralsConverter {
 			return "MMM";
 		}
 	}
-
-/*
-	//"Stupid" implementation. EG: Does not use 'IV', but rather: 'IIII'//
-
-	private static int[] base = {100, 50, 10, 5, 1};
-	private static String[] baseRoman = {"C", "L", "X", "V","I"};
-
-
-	public static String convertLargeNumberStupid(int i) {
-
-
-		int[] digitCounter = new int[base.length];
-
-		for (int j = 0; j < base.length; j++) {
-			while (i >= base[j]) {
-				i = i - base[j];
-				digitCounter[j]++;
-			}
-		}
-
-		return generateRomanNumberStupid(digitCounter);
-	}
-
-	private static String generateRomanNumberStupid(int[] digitCounter){
-
-		String result = "";
-
-		for (int m = 0; m < base.length; m++) {
-			for(int k = 0; k < digitCounter[m]; k++){
-
-				result = result.concat(baseRoman[m]);
-			}
-		}
-
-		return result;
-	}*/
 }
