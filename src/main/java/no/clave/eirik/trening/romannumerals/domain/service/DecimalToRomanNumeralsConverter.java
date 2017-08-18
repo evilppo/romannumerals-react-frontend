@@ -1,4 +1,4 @@
-package no.clave.eirik.trening.romannumerals.domain;
+package no.clave.eirik.trening.romannumerals.domain.service;
 
  class DecimalToRomanNumeralsConverter {
 
@@ -8,7 +8,7 @@ package no.clave.eirik.trening.romannumerals.domain;
 	private static final int SINGLES = 3;
 
 
-	static String convertDecimalToRomanNumeral(int i){
+	static String convert(int i){
 
 		int[] decomposedDecimalNumber = decomposeDecimalNumber(i);
 

@@ -1,9 +1,10 @@
-package no.clave.eirik.trening.romannumerals.domain;
+package no.clave.eirik.trening.romannumerals.domain.service;
 
 
+ @SuppressWarnings("MagicNumber")
  class RomanNumeralToDecimalConverter {
 
-     static int convertDecimalToRomanNumeral(String numeral){
+     static int convert(String numeral){
 
         int result = 0;
         int length = numeral.length();

@@ -1,6 +1,7 @@
 package no.clave.eirik.trening.romannumerals.presentation;
 
-import no.clave.eirik.trening.romannumerals.domain.RomanNumeralService;
+import no.clave.eirik.trening.romannumerals.domain.Number;
+import no.clave.eirik.trening.romannumerals.domain.service.RomanNumeralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,18 +12,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/")
 public class RomanNumeralController {
 
-        RomanNumeralService romanNumeralService;
+        private RomanNumeralService romanNumeralService;
 
         @RequestMapping(method = RequestMethod.GET)
         public String greeting(){
             return "Hello! Please POST roman numeral..";
         }
 
-        @RequestMapping(method = RequestMethod.POST)
-        public int RomanToDecimal(@RequestBody String numeral){
+        @RequestMapping(value = "/roman-to-decimal", method = RequestMethod.POST)
+        public Number romanToDecimal(@RequestBody Number number){
 
-            return romanNumeralService.convertRomanNumeralToDecimal(numeral);
+            if(!number.hasRomanNumeral()) throw new IllegalArgumentException();
+
+            return romanNumeralService.convertRomanNumeral(number);
         }
+
+        @RequestMapping(value = "/decimal-to-roman", method = RequestMethod.POST)
+        public Number decimalToRoman(@RequestBody Number number){
+
+            if(!number.hasDecimal()) throw new IllegalArgumentException();
+
+        return romanNumeralService.convertDecimal(number);
+    }
 
         @Autowired
         public RomanNumeralController(RomanNumeralService romanNumeralService) {
