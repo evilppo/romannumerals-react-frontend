@@ -1,9 +1,10 @@
-package no.clave.eirik.trening.romannumerals;
+package no.clave.eirik.trening.romannumerals.domain;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 
+@SuppressWarnings("MagicNumber")
 public class DecimalToRomanNumeralsConverterTests {
 
 	@Test

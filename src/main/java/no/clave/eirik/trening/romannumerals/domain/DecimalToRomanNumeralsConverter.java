@@ -1,11 +1,12 @@
-package no.clave.eirik.trening.romannumerals;
+package no.clave.eirik.trening.romannumerals.domain;
 
-class DecimalToRomanNumeralsConverter {
+ class DecimalToRomanNumeralsConverter {
 
 	private static final int THOUSANDS = 0;
 	private static final int HUNDREDS = 1;
 	private static final int TENS = 2;
 	private static final int SINGLES = 3;
+
 
 	static String convertDecimalToRomanNumeral(int i){
 
@@ -16,7 +17,6 @@ class DecimalToRomanNumeralsConverter {
 
 
 	private static int[] decomposeDecimalNumber(int i){
-
 		//Decompose decimal number into array using integer division//
 
 		int[] decomposedDecimalNumber = new int[4];
