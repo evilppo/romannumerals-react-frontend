@@ -1,5 +1,7 @@
 package no.clave.eirik.trening.romannumerals.domain;
 
+import org.springframework.util.StringUtils;
+
 public class Number {
 
     public int decimal;
@@ -16,7 +18,7 @@ public class Number {
     }
 
     public boolean hasRomanNumeral() {
-        return romanNumeral != null;
+        return !StringUtils.isEmpty(romanNumeral);
     }
 
     public boolean hasDecimal() {

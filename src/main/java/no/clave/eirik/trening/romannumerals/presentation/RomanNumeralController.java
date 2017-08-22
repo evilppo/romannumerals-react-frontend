@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api")
 public class RomanNumeralController {
 
         private RomanNumeralService romanNumeralService;
@@ -22,7 +22,7 @@ public class RomanNumeralController {
         @RequestMapping(value = "/roman-to-decimal", method = RequestMethod.POST)
         public Number romanToDecimal(@RequestBody Number number){
 
-            if(!number.hasRomanNumeral()) throw new IllegalArgumentException();
+            if(!number.hasRomanNumeral()) throw new IllegalArgumentException("Zero is not defined for roman numerals");
 
             return romanNumeralService.convertRomanNumeral(number);
         }
@@ -30,7 +30,7 @@ public class RomanNumeralController {
         @RequestMapping(value = "/decimal-to-roman", method = RequestMethod.POST)
         public Number decimalToRoman(@RequestBody Number number){
 
-            if(!number.hasDecimal()) throw new IllegalArgumentException();
+            if(!number.hasDecimal()) throw new IllegalArgumentException("Zero is not defined for roman numerals");
 
         return romanNumeralService.convertDecimal(number);
     }
