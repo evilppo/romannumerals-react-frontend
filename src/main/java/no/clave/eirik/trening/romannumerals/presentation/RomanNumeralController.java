@@ -1,5 +1,6 @@
 package no.clave.eirik.trening.romannumerals.presentation;
 
+import no.clave.eirik.trening.romannumerals.domain.ConversionRequest;
 import no.clave.eirik.trening.romannumerals.domain.Number;
 import no.clave.eirik.trening.romannumerals.domain.service.RomanNumeralService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +21,17 @@ public class RomanNumeralController {
         }
 
         @RequestMapping(value = "/roman-to-decimal", method = RequestMethod.POST)
-        public Number romanToDecimal(@RequestBody Number number){
+        public ConversionRequest romanToDecimal(@RequestBody Number number){
 
-            if(!number.hasRomanNumeral()) throw new IllegalArgumentException("Zero is not defined for roman numerals");
+//            if(!number.hasRomanNumeral()) throw new IllegalArgumentException("Zero is not defined for roman numerals");
 
             return romanNumeralService.convertRomanNumeral(number);
         }
 
         @RequestMapping(value = "/decimal-to-roman", method = RequestMethod.POST)
-        public Number decimalToRoman(@RequestBody Number number){
+        public ConversionRequest decimalToRoman(@RequestBody Number number){
 
-            if(!number.hasDecimal()) throw new IllegalArgumentException("Zero is not defined for roman numerals");
+//            if(!number.hasDecimal()) throw new IllegalArgumentException("Zero is not defined for roman numerals");
 
         return romanNumeralService.convertDecimal(number);
     }

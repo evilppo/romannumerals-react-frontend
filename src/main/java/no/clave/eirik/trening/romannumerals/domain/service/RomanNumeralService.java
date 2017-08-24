@@ -1,7 +1,10 @@
 package no.clave.eirik.trening.romannumerals.domain.service;
 
+import no.clave.eirik.trening.romannumerals.domain.ConversionRequest;
 import no.clave.eirik.trening.romannumerals.domain.Number;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 public class RomanNumeralService {
@@ -9,38 +12,46 @@ public class RomanNumeralService {
     private static final int HIGHEST_POSSIBLE_INPUT = 3000;
     private static final int LOWEST_POSSIBLE_INPUT = 1;
 
-    public Number convertDecimal(Number number) throws IllegalArgumentException{
+    public ConversionRequest convertDecimal(Number number){
 
-        verifyDecimalNumberInRange(number.decimal);
+        ConversionRequest conversionRequest = new ConversionRequest(number);
 
-        String converted = DecimalToRomanNumeralsConverter.convert(number.decimal);
+        verifyConversionRequestDecimal(conversionRequest);
 
-        return new Number (number.decimal, converted);
+        conversionRequest.setNumber(new Number(number.decimal, DecimalToRomanNumeralsConverter.convert(number.decimal)));
+
+        return conversionRequest;
     }
 
-    public Number convertRomanNumeral(Number number) throws IllegalArgumentException{
+    public ConversionRequest convertRomanNumeral(Number number){
 
-        verifyValidRomanNumeral(number.romanNumeral);
+        ConversionRequest conversionRequest = new ConversionRequest((number));
 
-        int converted = RomanNumeralToDecimalConverter.convert(number.romanNumeral);
+        verifyConversionRequestRomanNumeral(conversionRequest);
 
-        return new Number(converted, number.romanNumeral);
+        conversionRequest.setNumber(new Number(RomanNumeralToDecimalConverter.convert(number.romanNumeral), number.romanNumeral));
+
+        return conversionRequest;
     }
 
-    private void verifyDecimalNumberInRange(int decimal) throws IllegalArgumentException{
+    private void verifyConversionRequestDecimal(ConversionRequest conversionRequest){
 
-        if(decimal < LOWEST_POSSIBLE_INPUT || HIGHEST_POSSIBLE_INPUT < decimal){
-            throw new IllegalArgumentException("Decimal number out of bounds. Should be in range 1-3000");
+        if(conversionRequest.getNumber().decimal < LOWEST_POSSIBLE_INPUT || HIGHEST_POSSIBLE_INPUT < conversionRequest.getNumber().decimal){
+
+            conversionRequest.setStatus("Validation failed");
+            conversionRequest.setValidationMsg("Decimal number out of range. Should be in range 1-3000");
         }
     }
 
-    private void verifyValidRomanNumeral(String numeralIn) throws IllegalArgumentException{
+    private void verifyConversionRequestRomanNumeral(ConversionRequest conversionRequest){
 
-        int converted = RomanNumeralToDecimalConverter.convert(numeralIn);
+        int converted = RomanNumeralToDecimalConverter.convert(conversionRequest.getNumber().romanNumeral);
         String reConverted = DecimalToRomanNumeralsConverter.convert(converted);
 
-        if(! numeralIn.equals(reConverted)){
-            throw new IllegalArgumentException("Invalid roman numeral used");
+        if(!Objects.equals(conversionRequest.getNumber().romanNumeral, reConverted) || !conversionRequest.getNumber().hasRomanNumeral()){
+
+            conversionRequest.setStatus("Validation failed");
+            conversionRequest.setValidationMsg("Invalid roman numeral sent as input");
         }
     }
 }
