@@ -8,8 +8,15 @@ var client = (function () {
             data: JSON.stringify(buildRequest1()),
             contentType: 'application/json;charset=UTF-8',
             success: function (response) {
+
                 console.log(response);
-                $('#decimal').val(response.number.decimal);
+
+                if(response.validation.status == "OK"){
+                    $('#decimal').val(response.number.decimal);
+                }
+                else{
+                    $('#decimal').val(response.validation.validationMsg);
+                }
             },
 
             error: function(error){
@@ -37,8 +44,15 @@ var client = (function () {
             data: JSON.stringify(buildRequest2()),
             contentType: 'application/json;charset=UTF-8',
             success: function (response) {
+
                 console.log(response);
-                $('#romannumeral').val(response.number.romanNumeral);
+
+                if(response.validation.status == "OK"){
+                   $('#romannumeral').val(response.number.romanNumeral);
+                }
+                else{
+                    $('#romannumeral').val(response.validation.validationMsg);
+                }
             },
 
             error: function(error){

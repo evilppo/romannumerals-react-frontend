@@ -43,6 +43,16 @@ public class ValidatorTest {
     }
 
     @Test
+    public void decimalNullTest() throws Exception {
+
+        Number n = new Number(null, null);
+        Validation v = validator.decimal(n);
+
+        assertEquals(Validation.Status.VALIDATION_FAILED, v.getStatus());
+        assertEquals(Validator.validationMsgInputIsEmpty, v.getValidationMsg());
+    }
+
+    @Test
     public void decimalNegativeTest() throws Exception {
 
         Number n = new Number(-1, null);
@@ -79,7 +89,17 @@ public class ValidatorTest {
         Validation v = validator.romanNumeral(n);
 
         assertEquals(Validation.Status.VALIDATION_FAILED, v.getStatus());
-        assertEquals(Validator.validationMsgInvalidRomanNumeral, v.getValidationMsg());
+        assertEquals(Validator.validationMsgInputIsEmpty, v.getValidationMsg());
+    }
+
+    @Test
+    public void romanNumeralNullTest() throws Exception {
+
+        Number n = new Number(null, null);
+        Validation v = validator.romanNumeral(n);
+
+        assertEquals(Validation.Status.VALIDATION_FAILED, v.getStatus());
+        assertEquals(Validator.validationMsgInputIsEmpty, v.getValidationMsg());
     }
 
     @Test

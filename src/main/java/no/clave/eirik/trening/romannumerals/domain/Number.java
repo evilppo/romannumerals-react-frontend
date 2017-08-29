@@ -4,10 +4,10 @@ import org.springframework.util.StringUtils;
 
 public class Number {
 
-    public int decimal;
+    public Integer decimal;
     public String romanNumeral;
 
-    public Number(int decimal, String romanNumeral) {
+    public Number(Integer decimal, String romanNumeral) {
         this.decimal = decimal;
         this.romanNumeral = romanNumeral;
     }
@@ -17,9 +17,5 @@ public class Number {
 
     public boolean hasRomanNumeral() {
         return !StringUtils.isEmpty(romanNumeral);
-    }
-
-    public boolean hasDecimal() {
-        return decimal != 0;
     }
 }

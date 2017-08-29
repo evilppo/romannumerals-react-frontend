@@ -40,7 +40,7 @@ public class RomanNumeralServiceTest {
 
         when(validatorMock.decimal(any())).thenReturn(new Validation(Validation.Status.OK, null));
 
-        romanNumeralService.convertDecimal(new Number());
+        romanNumeralService.convertDecimal(new Number(1, "I"));
 
         verify(validatorMock).decimal(any());
         verify(dToRConverterMock).convert(anyInt());
@@ -51,7 +51,7 @@ public class RomanNumeralServiceTest {
 
         when(validatorMock.romanNumeral(any())).thenReturn(new Validation(Validation.Status.OK, null));
 
-        romanNumeralService.convertRomanNumeral(new Number());
+        romanNumeralService.convertRomanNumeral(new Number(1, "I"));
 
         verify(validatorMock).romanNumeral(any());
         verify(rToDConverterMock).convert(any());

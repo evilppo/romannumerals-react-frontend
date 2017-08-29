@@ -13,6 +13,7 @@ class Validator {
 
     static final String validationMsgDecimalOutOfRange = "Input decimal is out of range. Should be in range 1-3000";
     static final String validationMsgInvalidRomanNumeral = "Input roman numeral is invalid";
+    static final String validationMsgInputIsEmpty = "Input field is empty";
 
     private RomanNumeralToDecimalConverter romanNumeralToDecimalConverter;
     private DecimalToRomanNumeralsConverter decimalToRomanNumeralsConverter;
@@ -27,7 +28,12 @@ class Validator {
 
     Validation decimal(Number number){
 
-        if(number.decimal < LOWEST_POSSIBLE_INPUT || HIGHEST_POSSIBLE_INPUT < number.decimal){
+        if(number.decimal == null){
+
+            return new Validation(Validation.Status.VALIDATION_FAILED, validationMsgInputIsEmpty);
+        }
+
+        else if(number.decimal < LOWEST_POSSIBLE_INPUT || HIGHEST_POSSIBLE_INPUT < number.decimal){
 
             return new Validation(Validation.Status.VALIDATION_FAILED, validationMsgDecimalOutOfRange);
         }
@@ -38,7 +44,12 @@ class Validator {
 
      Validation romanNumeral(Number number){
 
-        if(!validNumeral(number.romanNumeral) || !number.hasRomanNumeral()){
+        if(number.romanNumeral == null || !number.hasRomanNumeral()){
+
+            return new Validation(Validation.Status.VALIDATION_FAILED, validationMsgInputIsEmpty);
+        }
+
+        else if(!validNumeral(number.romanNumeral)){
 
             return new Validation(Validation.Status.VALIDATION_FAILED, validationMsgInvalidRomanNumeral);
         }
