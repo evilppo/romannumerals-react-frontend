@@ -5,9 +5,7 @@ import org.springframework.util.StringUtils;
 public class Number {
 
     public int decimal;
-
     public String romanNumeral;
-
 
     public Number(int decimal, String romanNumeral) {
         this.decimal = decimal;

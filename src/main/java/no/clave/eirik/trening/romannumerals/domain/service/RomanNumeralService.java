@@ -1,57 +1,49 @@
 package no.clave.eirik.trening.romannumerals.domain.service;
 
-import no.clave.eirik.trening.romannumerals.domain.ConversionRequest;
+import no.clave.eirik.trening.romannumerals.domain.ConversionResponse;
 import no.clave.eirik.trening.romannumerals.domain.Number;
+import no.clave.eirik.trening.romannumerals.domain.Validation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Service
 public class RomanNumeralService {
 
-    private static final int HIGHEST_POSSIBLE_INPUT = 3000;
-    private static final int LOWEST_POSSIBLE_INPUT = 1;
+    private Validator validator;
+    private DecimalToRomanNumeralsConverter decimalToRomanNumeralsConverter;
+    private RomanNumeralToDecimalConverter romanNumeralToDecimalConverter;
 
-    public ConversionRequest convertDecimal(Number number){
+    @Autowired
+    public RomanNumeralService(Validator validator,
+                               DecimalToRomanNumeralsConverter decimalToRomanNumeralsConverter,
+                               RomanNumeralToDecimalConverter romanNumeralToDecimalConverter) {
 
-        ConversionRequest conversionRequest = new ConversionRequest(number);
-
-        verifyConversionRequestDecimal(conversionRequest);
-
-        conversionRequest.setNumber(new Number(number.decimal, DecimalToRomanNumeralsConverter.convert(number.decimal)));
-
-        return conversionRequest;
+        this.validator = validator;
+        this.decimalToRomanNumeralsConverter = decimalToRomanNumeralsConverter;
+        this.romanNumeralToDecimalConverter = romanNumeralToDecimalConverter;
     }
 
-    public ConversionRequest convertRomanNumeral(Number number){
 
-        ConversionRequest conversionRequest = new ConversionRequest((number));
+    public ConversionResponse convertDecimal(Number number){
 
-        verifyConversionRequestRomanNumeral(conversionRequest);
+        Validation validation = validator.decimal(number);
 
-        conversionRequest.setNumber(new Number(RomanNumeralToDecimalConverter.convert(number.romanNumeral), number.romanNumeral));
-
-        return conversionRequest;
-    }
-
-    private void verifyConversionRequestDecimal(ConversionRequest conversionRequest){
-
-        if(conversionRequest.getNumber().decimal < LOWEST_POSSIBLE_INPUT || HIGHEST_POSSIBLE_INPUT < conversionRequest.getNumber().decimal){
-
-            conversionRequest.setStatus("Validation failed");
-            conversionRequest.setValidationMsg("Decimal number out of range. Should be in range 1-3000");
+        if(validation.isValid()) {
+            String converted = decimalToRomanNumeralsConverter.convert(number.decimal);
+            return new ConversionResponse(new Number(number.decimal, converted), validation);
         }
+
+        return new ConversionResponse(number, validation);
     }
 
-    private void verifyConversionRequestRomanNumeral(ConversionRequest conversionRequest){
+    public ConversionResponse convertRomanNumeral(Number number){
 
-        int converted = RomanNumeralToDecimalConverter.convert(conversionRequest.getNumber().romanNumeral);
-        String reConverted = DecimalToRomanNumeralsConverter.convert(converted);
+        Validation validation = validator.romanNumeral(number);
 
-        if(!Objects.equals(conversionRequest.getNumber().romanNumeral, reConverted) || !conversionRequest.getNumber().hasRomanNumeral()){
-
-            conversionRequest.setStatus("Validation failed");
-            conversionRequest.setValidationMsg("Invalid roman numeral sent as input");
+        if(validation.isValid()) {
+            int converted = romanNumeralToDecimalConverter.convert(number.romanNumeral);
+            return new ConversionResponse(new Number(converted, number.romanNumeral), validation);
         }
+        return new ConversionResponse(number, validation);
     }
 }

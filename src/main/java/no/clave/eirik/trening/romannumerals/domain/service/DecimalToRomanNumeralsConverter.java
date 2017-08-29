@@ -1,14 +1,16 @@
 package no.clave.eirik.trening.romannumerals.domain.service;
 
- class DecimalToRomanNumeralsConverter {
+import org.springframework.stereotype.Component;
+
+@Component
+class DecimalToRomanNumeralsConverter {
 
 	private static final int THOUSANDS = 0;
 	private static final int HUNDREDS = 1;
 	private static final int TENS = 2;
 	private static final int SINGLES = 3;
 
-
-	static String convert(int i){
+	 String convert(int i){
 
 		int[] decomposedDecimalNumber = decomposeDecimalNumber(i);
 

@@ -1,10 +1,13 @@
 package no.clave.eirik.trening.romannumerals.domain.service;
 
+import org.springframework.stereotype.Component;
 
- @SuppressWarnings("MagicNumber")
- class RomanNumeralToDecimalConverter {
 
-     static int convert(String numeral){
+@Component
+@SuppressWarnings("MagicNumber")
+class RomanNumeralToDecimalConverter {
+
+      int convert(String numeral){
 
         int result = 0;
         int length = numeral.length();

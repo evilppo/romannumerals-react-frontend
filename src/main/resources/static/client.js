@@ -9,12 +9,13 @@ var client = (function () {
             contentType: 'application/json;charset=UTF-8',
             success: function (response) {
                 console.log(response);
-                $('#decimal').val(response.decimal);
+                $('#decimal').val(response.number.decimal);
             },
 
             error: function(error){
 
                 window.alert(error.responseJSON.message);
+                $('#decimal_error').val(responseJSON.status);
                 console.log("Something went wrong", error);
             }
         });
@@ -37,7 +38,7 @@ var client = (function () {
             contentType: 'application/json;charset=UTF-8',
             success: function (response) {
                 console.log(response);
-                $('#romannumeral').val(response.romanNumeral);
+                $('#romannumeral').val(response.number.romanNumeral);
             },
 
             error: function(error){
