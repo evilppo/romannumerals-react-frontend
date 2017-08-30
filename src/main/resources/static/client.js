@@ -21,7 +21,7 @@ var client = (function () {
 
             error: function(error){
 
-                window.alert(error.responseJSON.message);
+                window.alert(error.responseJSON.validation.validationMsg);
                 $('#decimal_error').val(responseJSON.status);
                 console.log("Something went wrong", error);
             }
@@ -57,7 +57,7 @@ var client = (function () {
 
             error: function(error){
 
-                window.alert(error.responseJSON.message);
+                window.alert(error.responseJSON.validation.validationMsg);
                 console.log("Something went wrong", error);
             }
         });
