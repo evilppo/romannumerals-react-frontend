@@ -1,13 +1,11 @@
 package no.clave.eirik.trening.romannumerals.domain.service;
 
-import no.clave.eirik.trening.romannumerals.domain.ConversionResponse;
 import no.clave.eirik.trening.romannumerals.domain.Number;
 import no.clave.eirik.trening.romannumerals.domain.Validation;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 
 public class ValidatorTest {

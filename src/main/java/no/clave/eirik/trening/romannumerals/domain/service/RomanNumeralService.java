@@ -4,7 +4,6 @@ import no.clave.eirik.trening.romannumerals.domain.ConversionResponse;
 import no.clave.eirik.trening.romannumerals.domain.Number;
 import no.clave.eirik.trening.romannumerals.domain.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
