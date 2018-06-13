@@ -16,6 +16,11 @@ public class RomanNumeralController {
 
         private RomanNumeralService romanNumeralService;
 
+        @RequestMapping(value = "/")
+        public ResponseEntity root(){
+            return ResponseEntity.ok("Roman numerals API");
+        }
+
         @RequestMapping(value = "/roman-to-decimal", method = RequestMethod.POST)
         public ResponseEntity romanToDecimal(@RequestBody Number number){
 
