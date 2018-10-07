@@ -36,10 +36,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -54,7 +50,7 @@
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>1.6</version>
 				<configuration>
-					<workingDirectory>../cra-roman-numerals-frontend</workingDirectory>
+					<workingDirectory>cra-roman-numerals-frontend</workingDirectory>
 					<installDirectory>target</installDirectory>
 				</configuration>
 				<executions>
@@ -97,7 +93,7 @@
 						<configuration>
 							<target>
 								<copy todir="${project.build.directory}/classes/public">
-									<fileset dir="../cra-roman-numerals-frontend/build"/>
+									<fileset dir="${project.basedir}/cra-roman-numerals-frontend/build"/>
 								</copy>
 							</target>
 						</configuration>
